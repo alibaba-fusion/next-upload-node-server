@@ -1,12 +1,6 @@
 # next-upload-node-server
 
-
-
-## QuickStart
-
-<!-- add docs here for user -->
-
-see [egg docs][egg] for more detail.
+server side example code for fusion upload
 
 ### Development
 
@@ -16,18 +10,16 @@ $ npm run dev
 $ open http://localhost:7001/
 ```
 
-### Deploy
+### Example Page
 
-```bash
-$ npm start
-$ npm stop
-```
+http://localhost:7001/
 
-### npm scripts
 
-- Use `npm run lint` to check code style.
-- Use `npm test` to run unit test.
-- Use `npm run autod` to auto detect dependencies upgrade, see [autod](https://www.npmjs.com/package/autod) for more detail.
+### Example Frontend Code
+see app/view/index.html
 
+
+### Example Nodejs Code
+see app/controller/home.js
 
 [egg]: https://eggjs.org
