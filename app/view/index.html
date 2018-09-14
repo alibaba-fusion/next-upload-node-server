@@ -31,7 +31,7 @@
         const {Upload, Button} = window.Next;
         ReactDOM.render(<div>
             <Upload
-                action="/file"
+                action="/file?_csrf=CSRF_TOKEN"
                 onSuccess={onSuccess}
                 onError={onError}>
                 <Button type="primary" style={{margin: '0 0 10px'}}>Upload File</Button>
