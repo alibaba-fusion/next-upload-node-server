@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>File Upload</title>
+    <meta name="description" content="" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://alifd.alicdn.com/npm/@alifd/next/1.13.8/next.css"
+    />
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-705PUfvJvAQK8mZapbTkJP9DI68yuyEhNgddniXP8PS96e38myoZMbbvxAkjZYJu"
+      src="https://lib.baomitu.com/react/16.8.4/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-svoqvRFgNxv6GZrDyuq8m7kCdUGvnidYxpcEop74dkS8wnQU00q6raTxV6UDUy0Y"
+      src="https://lib.baomitu.com/react-dom/16.8.4/umd/react-dom.development.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      integrity="sha384-5eDs4qg7Mm6lRIqLmB5k7P/GV+iEWdlzONR7lOdXJ/hquF3S4n4Z2u0rbhx8OYXs"
+      src="https://lib.baomitu.com/babel-standalone/6.26.0/babel.js"
+    ></script>
+    <script src="https://alifd.alicdn.com/npm/@alifd/next/1.13.8/next.js"></script>
+    <style>
+      #mountNode {
+        padding: 40px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="mountNode"></div>
+    <script>
+      var mountNode = document.getElementById("mountNode");
+      function ajaxGetToken(file) {
+        return Promise.resolve({
+          saveKey: "xxxxx",
+          policy:
+            "xxxxxx==",
+          authorization: "xxxxxxxx",
+          bucket: 'xxxx',
+        });
+      }
+      function beforeUpload(file, option) {
+        return ajaxGetToken().then(data => {
+          option.data = {
+            'save-key': data.saveKey,
+            policy: data.policy,
+            authorization: data.authorization,
+            expiration: 30,
+          };
+          option.headers = { "X-Requested-With": null };
+          option.action = " http://v0.api.upyun.com/" + data.bucket;
+          return option;
+        });
+      }
+    </script>
+    <script type="text/babel">
+      function onSuccess(info) {
+        console.log("onSuccess : ", info);
+      }
+      function onError(err) {
+        console.log("onError : ", err);
+      }
+      const { Upload, Button } = window.Next;
+
+      ReactDOM.render(
+        <div>
+          <Upload
+            listType="text"
+            action="" // 
+            onSuccess={onSuccess}
+            onError={onError}
+            beforeUpload={beforeUpload}
+            withCredentials={false}
+          >
+            <Button type="primary" style={{ margin: "0 0 10px" }}>
+              Upyun Upload File
+            </Button>
+          </Upload>
+        </div>,
+        mountNode
+      );
+    </script>
+  </body>
+</html>
